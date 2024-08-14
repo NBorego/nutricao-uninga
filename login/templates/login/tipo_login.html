@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} Tipo de Login {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/login/tipo_login.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main class="container d-flex flex-column flex-md-row justify-content-evenly align-items-center">
+        <section class="tipo shadow-lg">
+            <a 
+                class="d-flex justify-content-center align-items-center flex-column" 
+                href="{% url "login_cliente" %}">
+                <i class="bi bi-person-fill"></i>
+                <h1>Cliente</h1>
+            </a>
+        </section>
+        <section class="tipo shadow-lg">
+            <a 
+                class="d-flex justify-content-center align-items-center flex-column" 
+                href="{% url "login_nutricionista" %}"
+            >
+                <i class="bi bi-person-fill-lock"></i>
+                <h1>Nutricionista</h1>
+            </a>
+        </section>
+    </main>
+{% endblock conteudo %}

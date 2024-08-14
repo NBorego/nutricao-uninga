@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} Tipo de Login {% endblock titulo %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static "css/login/login.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main class="d-flex flex-column justify-content-center align-items-center">
+        <header
+            class=
+                "header-form border border-1 rounded-top-2 border-bottom-0 
+                text-white p-2 fs-2 text-center"
+            style="width: 30rem;"
+        >
+            Criar Conta
+        </header>
+        <form method="POST" class="p-4 border border-1" style="width: 30rem;"
+        >
+            {% csrf_token %}
+            {{ form }}
+            
+            <button 
+                type="submit" 
+                class="btn btn-success m-auto d-block mt-4" 
+                style="width: 8rem;"
+            >
+                Enviar
+            </button>
+        </form>
+    </main>
+{% endblock conteudo %}
