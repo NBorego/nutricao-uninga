@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} {{alimento.nome}} {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/catalogo/catalogo.css" %}">
+    <link rel="stylesheet" href="{% static "css/catalogo/alimento.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <form 
+        method="POST" 
+        enctype="multipart/form-data"
+        class="p-4 border border-1" 
+        style="width: 30rem;"
+    >
+        {% csrf_token %}
+        {{ form }}
+
+        <button 
+            type="submit" 
+            class="btn btn-primary m-auto d-block mt-4" 
+        >
+            Enviar
+        </button>
+    </form>
+{% endblock conteudo %}

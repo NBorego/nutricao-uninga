@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} {{alimento.nome}} {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/catalogo/catalogo.css" %}">
+    <link rel="stylesheet" href="{% static "css/catalogo/alimento.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main>
+        {% include "partials/catalogo/pesquisa.html" %}
+
+        <section class="container bg-white d-flex flex-column justify-content-center align-items-center shadow-sm gap-4 py-4 my-4">
+            {% if alimento.imagem %}
+                <img 
+                    class="imagem-alimento"
+                    src="{{ alimento.imagem.url }}" 
+                    alt="imagem de {{alimento.nome}}">
+            {% else %}
+                <img 
+                    class="imagem-alimento"
+                    src="{% static "img/placeholder.png" %}" 
+                    alt="Placeholder">
+            {% endif %}
+            
+            <h1 class="titulo">{{alimento.nome}}</h1>
+            
+            <p class="descricao">{{alimento.descricao}}</p>
+
+            <form class="d-flex justify-content-center align-items-center gap-4" action="">
+                <div>
+                    <label for="medida" class="form-label fw-bold">Medida:</label>
+                    <select class="form-select" id="medida">
+                        <option selected value="1">gramas</option>
+                        <option value="2">xicara</option>
+                        <option value="3">prato fundo</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label fw-bold">Quantitade:</label>
+                    <input type="number" class="form-control" id="quantitade" value="1">
+                </div>
+
+                <button class="btn btn-primary" type="button" style="margin-top: 1.95rem;">Calcular</button>
+            </form>
+
+            {% include "partials/catalogo/tabela_nutricional.html" %}
+        </section>
+    </main>
+{% endblock conteudo %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} Catálogo {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/catalogo/catalogo.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main>
+        {% include "partials/catalogo/pesquisa.html" %}
+
+        <div class="container">
+            <div class="row">
+                {% for alimento in pagina.object_list %}
+                    {% include "partials/catalogo/card.html" %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        {% include "partials/catalogo/paginador.html" %}
+    </main>
+{% endblock conteudo %}

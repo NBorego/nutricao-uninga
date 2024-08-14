@@ -1,0 +1,19 @@
+<section class="section catalogo">
+    <h1 class="text-center">Catálogo</h1>
+    <form class="container" action="{% url "catalogo" %}" method="GET">
+        <div class="input-group mb-3">
+            <input 
+                type="text" 
+                name="obj"
+                value="{{request.GET.obj}}"
+                class="form-control" 
+                placeholder="Digite um alimento..." 
+                aria-label="Example text with button addon" 
+                aria-describedby="button-addon1"
+            >
+            <button class="btn btn-primary" type="submit" id="button-addon1">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+    </form>
+</section>

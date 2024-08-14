@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block titulo %} Nutrição Uningá {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/home.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main>
+        <section class="section catalogo d-flex flex-column flex-md-row justify-content-around align-items-center gap-4">
+            <h1 class="text-center">Catálogo</h1>
+
+            <a class="btn-section d-flex justify-content-center align-items-center" href="{% url "catalogo" %}">
+                Ver mais
+            </a>
+        </section>
+
+        <div class="container">
+            <div class="row">
+                {% for alimento in alimentos %}
+                    {% include "partials/catalogo/card.html" %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <section class="section agendamento d-flex flex-column flex-md-row justify-content-around align-items-center gap-4">
+            <h1 class="text-center">Agendamento</h1>
+
+            <a class="btn-section d-flex justify-content-center align-items-center" href="{% url "catalogo" %}">
+                Ver mais
+            </a>
+        </section>
+
+        <div class="d-flex justify-content-center align-items-center bg-dark shadow-lg">
+            {% include "partials/carrossel.html" %}
+        </div>
+    </main>
+{% endblock conteudo %}

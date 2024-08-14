@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center align-items-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if pagina.paginator.num_pages > 1 %}
+                {% if pagina.has_previous %}
+                    {% if request.GET.obj %}
+                        <a class="page-link" 
+                            href="{% url "catalogo" %}?page={{pagina.previous_page_number}}&obj={{request.GET.obj}}" 
+                            aria-label="Previous"
+                        >
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% else %}
+                        <a class="page-link" 
+                            href="{% url "catalogo" %}?page={{pagina.previous_page_number}}" 
+                            aria-label="Previous"
+                        >
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    {% endif %}
+                {% endif %}
+
+                {% for numero_pagina in pagina.paginator.get_elided_page_range %}
+                    {% if request.GET.obj %}
+                        {% if numero_pagina != pagina.number %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url "catalogo" %}?page={{numero_pagina}}&obj={{request.GET.obj}}">
+                                    {{numero_pagina}}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item active page-link">{{numero_pagina}}</li> 
+                        {% endif %}
+                    {% else %}
+                        {% if numero_pagina != pagina.number %}
+                            <li class="page-item">
+                                <a class="page-link" href="{% url "catalogo" %}?page={{numero_pagina}}">
+                                    {{numero_pagina}}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item active page-link">{{numero_pagina}}</li> 
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagina.has_next %}
+                    {% if request.GET.obj %}
+                        <a class="page-link" 
+                            href="{% url "catalogo" %}?page={{pagina.next_page_number}}&obj={{request.GET.obj}}" 
+                            aria-label="Previous"
+                        >
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    {% else %}
+                        <li class="page-item">    
+                            <a class="page-link" 
+                                href="{% url "catalogo" %}?page={{pagina.next_page_number}}" 
+                                aria-label="Next"
+                            >
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+</div>

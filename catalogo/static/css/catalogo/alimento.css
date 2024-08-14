@@ -1,0 +1,18 @@
+.imagem-alimento {
+    max-width: 30rem;
+}
+
+.titulo {
+    border-bottom: 2px solid var(--cor-primaria);
+    padding-bottom: .5rem;
+}
+
+.descricao {
+    max-width: 50rem;
+    text-align: justify;
+}
+
+
+table {
+    max-width: 50rem;
+}
