@@ -1,0 +1,55 @@
+{% extends "base_cliente.html" %}
+
+{% load static %}
+
+{% block titulo %} Agendar Consulta {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock styles %}
+
+{% block conteudo %}
+    <div class="container mt-5 d-flex align-items-center flex-column">
+        <h1>Agendar Consulta</h1>
+        <form method="POST" style="max-width: 40rem">
+            <div class="form-group">
+                <label for="medico">Médico:</label>
+                <select class="form-control" id="medico" name="medico">
+                    <option select> -- Selecionar Médico -- </option>
+                    <option>Medico 1</option>
+                    <option>Medico 2</option>
+                    <option>Medico 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dia">Dia:</label>
+                <input type="text" class="form-control" id="dia" name="dia" placeholder="dd/mm/aaaa">
+            </div>
+            <div class="form-group mb-4">
+                <label for="horario">Horário:</label>
+                <select class="form-control" id="horario" name="horario">
+                    <option>18:00</option>
+                    <option>14:00</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary d-block m-auto">Salvar</button>
+        </form>
+    </div>
+{% endblock conteudo %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18n-date@1.0.0/i18n-date.min.js"></script>
+    <script>
+        $(function() {
+            $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+            var hoje = new Date();
+            var amanha = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + 1);
+            $("#dia").datepicker({ 
+                dateFormat: 'dd/mm/yy',
+                minDate: amanha
+            });
+        });
+    </script>
+{% endblock scripts %}
