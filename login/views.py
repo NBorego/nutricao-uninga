@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import *
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import ClienteForm, NutricionistaForm
 
 # Create your views here.
 def tipo_login(request):
@@ -7,48 +9,54 @@ def tipo_login(request):
 
 def login_cliente(request):
     if request.method == 'POST':
-        form = ClienteLoginForm(request.POST)
+        form = AuthenticationForm(data=request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect('login_cliente')
-    else: 
-        form = ClienteLoginForm()
+            user = form.get_user()
+            login(request, user)
 
-        return render(request, 'login/login_cliente.html', {'form': form})
+            if user.is_cliente:
+                return redirect('pagina_cliente')
+            else:
+                return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login/login_cliente.html', {'form': form})
     
 def login_nutricionista(request):
-    if request.method == 'POST':
-        form = NutricionistaLoginForm(request.POST)
+    # if request.method == 'POST':
+    #     form = Nu(request.POST)
 
-        if form.is_valid():
-            form.save()
-            return redirect('login_nutricionista')
-    else: 
-        form = NutricionistaLoginForm()
-        return render(request, 'login/login_nutricionista.html', {'form': form})
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('login_nutricionista')
+    # else: 
+    #     form = NutricionistaLoginForm()
+        return render(request, 'login/login_nutricionista.html')
     
 def registrar_cliente(request):
     if request.method == 'POST':
-        form = RegistrarClienteForm(request.POST)
+        form = ClienteForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect('registrar_cliente')
+            user = form.save()
+            login(request, user)
+            return redirect('pagina_cliente')
     else:
-        form = RegistrarClienteForm()
-        return render(request, 'login/registrar_cliente.html', {'form': form})
+        form = ClienteForm()
+    return render(request, 'login/registrar_cliente.html', {'form': form})
 
 def registrar_nutricionista(request):
     if request.method == 'POST':
-        form = RegistrarNutricionistaForm(request.POST)
+        form = NutricionistaForm(request.POST)
 
         if form.is_valid():
-            form.save()
-            return redirect('registrar_cliente')
+            user = form.save()
+            login(request, user)
+            return redirect('pagina_nutricionista')
     else:
-        form = RegistrarNutricionistaForm()
-        return render(request, 'login/adm/registrar_nutricionista.html', {'form': form})
+        form = NutricionistaForm()
+    return render(request, 'login/registrar_nutricionista.html', {'form': form})
 
 def logar_adm(request):
     return render(request, 'login/adm/logar_adm.html')
