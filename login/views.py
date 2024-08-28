@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .forms import ClienteForm, NutricionistaForm, CustomAuthenticationForm
 
 def tipo_login(request):
@@ -60,3 +60,8 @@ def registrar_nutricionista(request):
 
 def logar_adm(request):
     return render(request, 'login/adm/logar_adm.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')

@@ -22,9 +22,28 @@
                     <a class="nav-link" href="#">Agendamento</a>
                 </li>
                 </ul>
-                <div class="text-end">
-                    <a class="btn btn-outline-light" href="{% url "tipo_login" %}">Entrar</a>
-                </div>
+
+                {% if user.is_authenticated %}
+                    <div class="text-end">
+                        {% if user.is_cliente %}
+                            <a class="nav-text text-white mx-2 text-decoration-none" href="{% url 'pagina_cliente' %}">
+                                {{user.first_name}}
+                            </a>
+                        {% elif user.is_nutricionista %}
+                            <a class="nav-text text-white mx-2" href="{% url 'pagina_nutricionista' %}">
+                                {{user.first_name}}
+                            </a>
+                        {% endif %}
+                        <a class="btn btn-outline-danger" href="{% url 'logout' %}">
+                            Sair
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="text-end">
+                        <a class="btn btn-outline-light" href="{% url "tipo_login" %}">Entrar</a>
+                    </div>
+                {% endif %}
+
             </div>
         </div>
     </nav>
