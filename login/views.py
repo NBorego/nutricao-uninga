@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import ClienteForm, NutricionistaForm
+from .forms import ClienteForm, NutricionistaForm, CustomAuthenticationForm
 
 # Create your views here.
 def tipo_login(request):
@@ -9,7 +8,7 @@ def tipo_login(request):
 
 def login_cliente(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
 
         if form.is_valid():
             user = form.get_user()
@@ -20,19 +19,24 @@ def login_cliente(request):
             else:
                 return redirect('home')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login/login_cliente.html', {'form': form})
     
 def login_nutricionista(request):
-    # if request.method == 'POST':
-    #     form = Nu(request.POST)
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(data=request.POST)
 
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('login_nutricionista')
-    # else: 
-    #     form = NutricionistaLoginForm()
-        return render(request, 'login/login_nutricionista.html')
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+
+            if user.is_nutricionista:
+                return redirect('pagina_nutricionista')
+            else:
+                return redirect('home')
+    else: 
+        form = CustomAuthenticationForm() 
+        return render(request, 'login/login_nutricionista.html', {'form': form})
     
 def registrar_cliente(request):
     if request.method == 'POST':
@@ -56,7 +60,7 @@ def registrar_nutricionista(request):
             return redirect('pagina_nutricionista')
     else:
         form = NutricionistaForm()
-    return render(request, 'login/registrar_nutricionista.html', {'form': form})
+    return render(request, 'login/adm/registrar_nutricionista.html', {'form': form})
 
 def logar_adm(request):
     return render(request, 'login/adm/logar_adm.html')
