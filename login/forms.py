@@ -18,21 +18,34 @@ class CustomAuthenticationForm(AuthenticationForm):
         }),
     )
 
-    error_messages = {
-        "invalid_login": _(
-            "O %(username)s ou a senha está incorreto."
-        ),
-        "inactive": _("Esta conta está inativa."),
-    }
-
 class ClienteForm(UserCreationForm):
+    first_name = forms.CharField(label=_("Nome"))
+    last_name = forms.CharField(label=_("Sobrenome"))
+    password1 = forms.CharField(
+        label=_("Senha"),
+        widget=forms.PasswordInput()
+    )
+    password2 = forms.CharField(
+        label=_("Confirmar senha"),
+        widget=forms.PasswordInput()
+    )
+
+    usable_password = None
+    
     class Meta(UserCreationForm.Meta):
         model = User
         fields = [
+            'first_name',
+            'last_name',
             'email',
-            'password1', 
-            'password2'
+            'password1',
+            'password2',
         ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control mb-2'})
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -44,9 +57,33 @@ class ClienteForm(UserCreationForm):
         return user
 
 class NutricionistaForm(UserCreationForm):
+    first_name = forms.CharField(label=_("Nome"))
+    last_name = forms.CharField(label=_("Sobrenome"))
+    password1 = forms.CharField(
+        label=_("Senha"),
+        widget=forms.PasswordInput()
+    )
+    password2 = forms.CharField(
+        label=_("Confirmar senha"),
+        widget=forms.PasswordInput()
+    )
+
+    usable_password = None
+    
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = [
+            'first_name',
+            'last_name',
+            'email',
+            'password1',
+            'password2',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
 
     def save(self, commit=True):
         user = super().save(commit=False)

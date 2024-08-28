@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from .forms import ClienteForm, NutricionistaForm, CustomAuthenticationForm
 
-# Create your views here.
 def tipo_login(request):
     return render(request, 'login/tipo_login.html')
 
@@ -16,8 +15,6 @@ def login_cliente(request):
 
             if user.is_cliente:
                 return redirect('pagina_cliente')
-            else:
-                return redirect('home')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login/login_cliente.html', {'form': form})
@@ -32,11 +29,10 @@ def login_nutricionista(request):
 
             if user.is_nutricionista:
                 return redirect('pagina_nutricionista')
-            else:
-                return redirect('home')
     else: 
         form = CustomAuthenticationForm() 
-        return render(request, 'login/login_nutricionista.html', {'form': form})
+    
+    return render(request, 'login/login_nutricionista.html', {'form': form})
     
 def registrar_cliente(request):
     if request.method == 'POST':

@@ -5,10 +5,12 @@ class User(AbstractUser):
     is_cliente = models.BooleanField(default=False)
     is_nutricionista = models.BooleanField(default=False)
 
+    username = models.CharField(unique=True, max_length=50, null=True, blank=True)
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []       
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
 
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -19,6 +21,8 @@ class Cliente(models.Model):
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
 
+    def __str__(self):
+        return self.user.email
 
 class Nutricionista(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -28,3 +32,6 @@ class Nutricionista(models.Model):
     class Meta:
         verbose_name = 'Nutricionista'
         verbose_name_plural = 'Nutricionistas'
+
+    def __str__(self):
+        return self.user.email
