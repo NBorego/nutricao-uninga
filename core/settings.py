@@ -19,6 +19,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'login',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agendamento',
     'catalogo',
-    'login'
 ]
 
 MIDDLEWARE = [
@@ -122,5 +122,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'login.User'
-LOGIN_URL = '/'
-...
+LOGIN_URL = '/login/tipo_login'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

@@ -23,7 +23,7 @@
             {% csrf_token %}
             {{ form }}
             
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="{% url "password_reset" %}" rel="noopener noreferrer">
                 Esqueci minha senha
             </a>
             <button 
