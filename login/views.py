@@ -17,7 +17,7 @@ def login_cliente(request):
                 login(request, user)
                 return redirect('pagina_cliente')
             
-            erro = 'Este e-mail não está cadastrado como cliente. Por favor, faça login como nutricionista.'
+            erro = 'Este e-mail não está cadastrado como cliente. Tente entrar como nutricionista.'
 
             return render(
                 request, 
@@ -39,11 +39,11 @@ def login_nutricionista(request):
                 login(request, user)
                 return redirect('pagina_nutricionista')
             
-            erro = 'Este e-mail não está cadastrado como nutricionista. Por favor, faça login como cliente.'
+            erro = 'Este e-mail não está cadastrado como nutricionista. Tente entrar como cliente.'
 
             return render(
                 request, 
-                'login/login_cliente.html', 
+                'login/login_nutricionista.html', 
                 {'form': form, 'erro': erro}
             )
     else: 
