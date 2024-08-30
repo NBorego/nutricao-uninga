@@ -22,9 +22,8 @@
                     <a class="nav-link" href="{% url "minha_conta_cliente" %}">Minha Conta</a>
                 </li>
                 </ul>
-                <div class="text-end">
-                    <a class="btn btn-outline-light" href="{% url "tipo_login" %}">Sair</a>
-                </div>
+                
+                {% include "partials/usuario.html" %}
             </div>
         </div>
     </nav>

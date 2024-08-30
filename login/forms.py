@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User, Cliente, Nutricionista
+import datetime
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
@@ -21,6 +22,10 @@ class CustomAuthenticationForm(AuthenticationForm):
 class ClienteForm(UserCreationForm):
     first_name = forms.CharField(label=_("Nome"))
     last_name = forms.CharField(label=_("Sobrenome"))
+    data_nascimento = forms.DateField(
+        label=_("Data de nascimento"),
+        widget=forms.DateTimeInput(attrs={'type': 'date'}),
+    )
     password1 = forms.CharField(
         label=_("Senha"),
         widget=forms.PasswordInput()
@@ -38,6 +43,8 @@ class ClienteForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'foto',
+            'data_nascimento',
             'password1',
             'password2',
         ]
@@ -76,6 +83,8 @@ class NutricionistaForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'foto',
+            'data_nascimento',
             'password1',
             'password2',
         ]

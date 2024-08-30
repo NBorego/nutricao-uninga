@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import user_passes_test, login_required
 from .forms import ClienteForm, NutricionistaForm, CustomAuthenticationForm
 
 def tipo_login(request):
@@ -36,7 +37,7 @@ def login_nutricionista(request):
     
 def registrar_cliente(request):
     if request.method == 'POST':
-        form = ClienteForm(request.POST)
+        form = ClienteForm(request.POST, request.FILES)
 
         if form.is_valid():
             user = form.save()
@@ -46,9 +47,11 @@ def registrar_cliente(request):
         form = ClienteForm()
     return render(request, 'login/registrar_cliente.html', {'form': form})
 
+@login_required(login_url='logar_adm')
+@user_passes_test(lambda u: u.is_superuser, login_url='logar_adm')
 def registrar_nutricionista(request):
     if request.method == 'POST':
-        form = NutricionistaForm(request.POST)
+        form = NutricionistaForm(request.POST, request.FILES)
 
         if form.is_valid():
             user = form.save()
@@ -60,7 +63,6 @@ def registrar_nutricionista(request):
 
 def logar_adm(request):
     return render(request, 'login/adm/logar_adm.html')
-
 
 def logout_view(request):
     logout(request)

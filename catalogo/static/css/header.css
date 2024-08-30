@@ -1,3 +1,10 @@
 .header-principal {
     background-color: var(--cor-primaria);
 }
+
+.imagem-usuario {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    border: 1px solid white;
+}
