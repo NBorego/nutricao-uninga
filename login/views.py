@@ -12,10 +12,18 @@ def login_cliente(request):
 
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
 
             if user.is_cliente:
+                login(request, user)
                 return redirect('pagina_cliente')
+            
+            erro = 'Este e-mail não está cadastrado como cliente. Por favor, faça login como nutricionista.'
+
+            return render(
+                request, 
+                'login/login_cliente.html', 
+                {'form': form, 'erro': erro}
+            )
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login/login_cliente.html', {'form': form})
@@ -26,10 +34,18 @@ def login_nutricionista(request):
 
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
 
-            if user.is_nutricionista:
+            if user.is_nutricionista or user.is_superuser:
+                login(request, user)
                 return redirect('pagina_nutricionista')
+            
+            erro = 'Este e-mail não está cadastrado como nutricionista. Por favor, faça login como cliente.'
+
+            return render(
+                request, 
+                'login/login_cliente.html', 
+                {'form': form, 'erro': erro}
+            )
     else: 
         form = CustomAuthenticationForm() 
     
