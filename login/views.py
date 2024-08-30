@@ -62,7 +62,19 @@ def registrar_nutricionista(request):
     return render(request, 'login/adm/registrar_nutricionista.html', {'form': form})
 
 def logar_adm(request):
-    return render(request, 'login/adm/logar_adm.html')
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(data=request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+
+            if user.is_superuser:
+                return redirect('registrar_nutricionista')
+    else: 
+        form = CustomAuthenticationForm()
+
+    return render(request, 'login/adm/logar_adm.html', {'form': form})
 
 def logout_view(request):
     logout(request)

@@ -25,10 +25,7 @@
         <form method="POST" class="p-4 border border-1" style="width: 30rem;"
         >
             {% csrf_token %}
-            <label for="usuario">Usuário: </label>
-            <input type="text" name="usuario" class="form-control my-2">
-            <label for="usuario">Senha: </label>
-            <input type="password" name="senha" class="form-control my-2">
+            {{form}}
 
             <button 
                 type="submit" 

@@ -36,6 +36,10 @@
                 {% endif %}
                 <span>{{user.first_name}}</span>
             </a>
+        {% else %}
+            <span class="text-white">
+                Administrador
+            </span>
         {% endif %}
         <a class="btn btn-outline-danger" href="{% url 'logout' %}">
             Sair

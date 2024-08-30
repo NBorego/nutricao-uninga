@@ -66,6 +66,10 @@ class ClienteForm(UserCreationForm):
 class NutricionistaForm(UserCreationForm):
     first_name = forms.CharField(label=_("Nome"))
     last_name = forms.CharField(label=_("Sobrenome"))
+    data_nascimento = forms.DateField(
+        label=_("Data de nascimento"),
+        widget=forms.DateTimeInput(attrs={'type': 'date'}),
+    )
     password1 = forms.CharField(
         label=_("Senha"),
         widget=forms.PasswordInput()
@@ -92,7 +96,7 @@ class NutricionistaForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+            field.widget.attrs.update({'class': 'form-control mb-2'})
 
     def save(self, commit=True):
         user = super().save(commit=False)
