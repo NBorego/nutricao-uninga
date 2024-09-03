@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User, Cliente, Nutricionista
-import datetime
+from django.contrib.auth.models import Permission
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(
@@ -60,6 +60,8 @@ class ClienteForm(UserCreationForm):
 
         if commit:
             user.save()
+            permission = Permission.objects.get(codename='cliente', content_type__app_label='login')
+            user.user_permissions.add(permission)
             Cliente.objects.create(user=user)
         return user
 
@@ -104,5 +106,7 @@ class NutricionistaForm(UserCreationForm):
 
         if commit:
             user.save()
+            permission = Permission.objects.get(codename='nutricionista', content_type__app_label='login')
+            user.user_permissions.add(permission)
             Nutricionista.objects.create(user=user)
         return user

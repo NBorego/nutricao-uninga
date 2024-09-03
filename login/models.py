@@ -13,16 +13,24 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
+    class Meta:
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
+    
+        permissions = [
+            ("cliente", "Pode visitar sua pagina de cliente"),
+            ("nutricionista", "Pode visitar sua pagina de nutricionista"),
+        ]
+
+    def __str__(self):
+        return self.email
+
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
-
-        permissions = [
-            ("cliente", "Pode visitar sua pagina de cliente"),
-        ]
 
     def __str__(self):
         return self.user.email
@@ -33,10 +41,6 @@ class Nutricionista(models.Model):
     class Meta:
         verbose_name = 'Nutricionista'
         verbose_name_plural = 'Nutricionistas'
-
-        permissions = [
-            ("nutricionista", "Pode visitar sua pagina de nutricionista"),
-        ]
 
     def __str__(self):
         return self.user.email

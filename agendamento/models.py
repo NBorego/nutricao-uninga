@@ -17,5 +17,3 @@ class Agendamento(models.Model):
         verbose_name = "Agendamento"
         verbose_name_plural = "Agendamentos"
 
-    def __str__(self):
-        return self.nome

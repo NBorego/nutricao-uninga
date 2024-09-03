@@ -1,0 +1,5 @@
+.boas-vindas {
+    max-width: 50rem;
+    background-color: var(--cor-primaria);
+    text-align: center;
+}
