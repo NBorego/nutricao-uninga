@@ -4,7 +4,7 @@ from login.models import Cliente, Nutricionista
 class Agendamento(models.Model):
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     id_nutricionista = models.ForeignKey(Nutricionista, on_delete=models.CASCADE)
-    data = models.DateField()
+    dia = models.DateField()
     horario = models.TimeField()
     status = models.CharField(max_length=20, choices=[
         ('Pendente', 'Pendente'),

@@ -33,7 +33,7 @@ class Cliente(models.Model):
         verbose_name_plural = 'Clientes'
 
     def __str__(self):
-        return self.user.email
+        return f'{self.user.first_name} {self.user.last_name}' 
 
 class Nutricionista(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,4 +43,4 @@ class Nutricionista(models.Model):
         verbose_name_plural = 'Nutricionistas'
 
     def __str__(self):
-        return self.user.email
+        return f'{self.user.first_name} {self.user.last_name}' 

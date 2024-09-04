@@ -39,4 +39,4 @@ def add(request):
             return redirect('catalogo')
     else:
         form = AlimentoForm()
-        return render(request, 'catalogo/add.html', {'form': form})
+    return render(request, 'catalogo/add.html', {'form': form})

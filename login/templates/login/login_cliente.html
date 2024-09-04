@@ -5,11 +5,14 @@
 {% block titulo %} Tipo de Login {% endblock titulo %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static "css/login/login.css" %}">
+    <link rel="stylesheet" href="{% static "css/login/login.css" %}">
 {% endblock styles %}
 
 {% block conteudo %}
-    <main class="d-flex flex-column justify-content-center align-items-center">
+    <main 
+        class="d-flex flex-column justify-content-center align-items-center"
+        style="height: 80vh;"
+    >
         <small class="text-danger mb-2">
             {{ erro }}
         </small>
