@@ -29,9 +29,15 @@
         <section class="section agendamento d-flex flex-column flex-md-row justify-content-around align-items-center gap-4">
             <h1 class="text-center">Agendamento</h1>
 
-            <a class="btn-section d-flex justify-content-center align-items-center" href="{% url "catalogo" %}">
-                Ver mais
-            </a>
+            {% if user.is_cliente %}
+                <a class="btn-section d-flex justify-content-center align-items-center" href="{% url "agendar_consulta" %}">
+                    Ver mais
+                </a>
+            {% else %}
+                <a class="btn-section d-flex justify-content-center align-items-center" href="{% url "pagina_nutricionista" %}">
+                    Ver mais
+                </a>
+            {% endif %}
         </section>
 
         <div class="d-flex justify-content-center align-items-center bg-dark shadow-lg">

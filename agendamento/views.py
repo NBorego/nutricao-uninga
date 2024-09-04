@@ -2,12 +2,13 @@ from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render, redirect
 from .models import Agendamento
 from .forms import AgendamentoForm
+from login.models import Cliente
 
 # Cliente
 @login_required
 @permission_required('login.cliente')
 def pagina_cliente(request):
-    consultas = Agendamento.objects.all().order_by('dia') 
+    consultas = Agendamento.objects.filter(cliente=request.user.cliente).order_by('dia') 
 
     return render(request, 
         'agendamento/cliente/pagina_inicial.html', {'consultas': consultas}
@@ -17,13 +18,13 @@ def pagina_cliente(request):
 @permission_required('login.cliente')
 def agendar_consulta(request):
     if request.method == 'POST':
-        form = AgendamentoForm(request.POST)
+        form = AgendamentoForm(request.POST, cliente=request.user.cliente)
 
         if form.is_valid():
             form.save()
             return redirect('pagina_cliente')
     else:
-        form = AgendamentoForm()
+        form = AgendamentoForm(cliente=request.user.cliente)
     return render(request, 'agendamento/cliente/agendar_consulta.html', {'form': form})
 
 @login_required

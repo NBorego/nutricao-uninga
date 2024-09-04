@@ -39,4 +39,15 @@ class AgendamentoForm(forms.ModelForm):
 
     class Meta:
         model = Agendamento
-        fields = ('nutricionista', 'dia','horario', 'tem_patologia')
+        fields = ('nutricionista', 'dia','horario', 'tem_patologia')    
+
+    def __init__(self, *args, **kwargs):
+        self.cliente = kwargs.pop('cliente', None)  # Retira o cliente dos argumentos
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        agendamento = super().save(commit=False)
+        agendamento.cliente = self.cliente  # Atribui o cliente atual
+        if commit:
+            agendamento.save()
+        return agendamento
