@@ -10,19 +10,16 @@
 
 {% block conteudo %}
     <main>
-        <section class="container mt-5 d-flex justify-content-center">
-            <div class="boas-vindas p-4 text-light">
-                <h1 class="display-4">Uningá Clínica Nutrição</h1>
-                <p class="lead">Bem-vindo à Uningá Clínica Nutrição. Saiba mais sobre nossos serviços clicando no botão abaixo.</p>
-                <hr class="my-4">
-                <a class="btn btn-light btn-lg" href="#" role="button">Saiba mais</a>
-            </div>
-        </section>
+        {% include "partials/agendamento/bem_vindo.html" %}
 
         <section class="container mt-5 d-flex justify-content-center flex-column text-center">
             <h1>Minhas Consultas</h1>
             <hr>
-            {% include "partials/agendamento/cliente/consultas.html" %}
+            <div class="d-flex flex-column gap-2">
+                {% for consulta in consultas %}
+                    {% include "partials/agendamento/cliente/consultas.html" %}
+                {% endfor %}
+            </div>
         </section>
     </main>
 {% endblock conteudo %}

@@ -3,26 +3,38 @@
         <div class="d-flex justify-content-between">
             <span class="fs-5">
                 <strong>Cliente: </strong>
-                Nome medico
+                {{consulta.cliente.user.first_name}}
+                {{consulta.cliente.user.last_name}} 
             </span>
             <div>
                 <span class="fs-5">
                     <strong>Dia: </strong>
-                    12/09/2024
+                    {{consulta.dia|date:"d/m/Y" }}
                 </span>
                 <span class="fs-5">
                     <strong>Horário: </strong>
-                    18:00
+                    {{consulta.horario}}
                 </span>
             </div>
             
         </div>
         <hr>
-        <div class="text-end">
-            <a class="btn btn-danger" href="">
-                Cancelar
-                <i class="bi bi-trash-fill"></i>
-            </a>
+        <div class="d-flex justify-content-between">
+            <span class="fs-5">
+                <strong>Status: </strong>
+                {{consulta.status}}
+            </span>
+
+            <div>
+                <a class="btn btn-primary" href="">
+                    Editar
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
+                <a class="btn btn-danger" href="">
+                    Cancelar
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>

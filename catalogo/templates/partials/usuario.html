@@ -20,7 +20,7 @@
                 <span>{{user.first_name}}</span>
             </a>
         {% elif user.is_nutricionista %}
-            <a class="text-white mx-2" href="{% url 'pagina_nutricionista' %}">
+            <a class="text-white mx-2 text-decoration-none" href="{% url 'pagina_nutricionista' %}">
                 {% if user.foto %}
                     <img 
                         class="imagem-usuario mx-2"

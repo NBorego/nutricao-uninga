@@ -1,0 +1,9 @@
+.header-form {
+    background-color: var(--cor-primaria);
+}
+
+.foto {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}

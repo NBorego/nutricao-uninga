@@ -1,15 +1,15 @@
 {% extends "base_cliente.html" %}
 
+{% load static %}
+
 {% block titulo %} Minha Conta {% endblock titulo %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/agendamento/minha_conta.css" %}">
+{% endblock styles %}
+
 {% block conteudo %}
-    <main>
-        <div class="container mt-5">
-            <h1>Minha Conta</h1>
-            <p><strong>Nome:</strong> nome cliente</p>
-            <p><strong>E-mail:</strong> email cliente</p>
-            <p><strong>Telefone:</strong> telefone cliente</p>
-        </div>
-    </main>
+    {% include "partials/agendamento/minha_conta.html" %}
 {% endblock conteudo %}
+
 

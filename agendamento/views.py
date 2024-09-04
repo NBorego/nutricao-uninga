@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect
 from .models import Agendamento
 from .forms import AgendamentoForm
 
+# Cliente
 @login_required
 @permission_required('login.cliente')
 def pagina_cliente(request):
-    agendamentos = Agendamento.objects.all().order_by('dia') 
+    consultas = Agendamento.objects.all().order_by('dia') 
 
     return render(request, 
-        'agendamento/cliente/pagina_inicial.html', {'agendamentos': agendamentos}
+        'agendamento/cliente/pagina_inicial.html', {'consultas': consultas}
     )
 
 @login_required
@@ -30,10 +31,17 @@ def agendar_consulta(request):
 def minha_conta_cliente(request): 
     return render(request, 'agendamento/cliente/minha_conta.html')
 
+# Nutricionista
 @login_required
 @permission_required('login.nutricionista')
 def pagina_nutricionista(request):
-    return render(request, 'agendamento/nutricionista/pagina_inicial.html')
+    consultas = Agendamento.objects.all().order_by('dia') 
+
+    return render(
+        request, 
+        'agendamento/nutricionista/pagina_inicial.html', 
+        {'consultas': consultas}
+    )
 
 @login_required
 @permission_required('login.nutricionista')
