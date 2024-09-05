@@ -1,0 +1,43 @@
+{% extends template %}
+
+{% load static %}
+
+{% block titulo %} Mudar Foto {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/login/login.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main 
+        class="d-flex flex-column justify-content-center align-items-center"
+        style="height: 80vh;"
+    >
+        <small class="text-danger mb-2">
+            {{ erro }}
+        </small>
+        <header
+            class=
+                "header-form border border-1 rounded-top-2 border-bottom-0 
+                text-white p-2 fs-2 text-center"
+            style="width: 30rem;"
+        >
+            Cliente
+        </header>
+        <form method="POST" enctype="multipart/form-data" class="p-4 border border-1" style="width: 30rem;"
+        >
+            {% csrf_token %}
+            {{ form }}
+            
+            <div class="mt-4 d-flex justify-content-between ">
+                <button 
+                    type="submit" 
+                    class="btn btn-success m-auto d-block" 
+                    style="width: 8rem;"
+                >
+                    Mudar
+                </button>
+            </div>
+        </form>
+    </main>
+{% endblock conteudo %}

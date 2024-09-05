@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import permission_required, login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Agendamento
-from .forms import AgendamentoForm
-from login.models import Cliente
+from .forms import AgendamentoForm, FotoForm
+from login.models import User
 
 # Cliente
 @login_required
@@ -47,11 +49,6 @@ def agendar_consulta(request):
     else:
         form = AgendamentoForm(cliente=request.user.cliente)
     return render(request, 'agendamento/cliente/agendar_consulta.html', {'form': form})
-
-@login_required
-@permission_required('login.cliente')
-def minha_conta_cliente(request): 
-    return render(request, 'agendamento/cliente/minha_conta.html')
 
 # Nutricionista
 @login_required
@@ -101,8 +98,64 @@ def cancelar_consulta(request, consulta_id):
     else:
         return redirect('pagina_cliente')
 
+# Minha conta
 @login_required
-@permission_required('login.nutricionista')
-def minha_conta_nutricionista(request): 
-    return render(request, 'agendamento/nutricionista/minha_conta.html')
+def minha_conta(request): 
+    if request.user.is_nutricionista:
+        template = "base_nutricionista.html"
+    elif request.user.is_cliente:
+        template = "base_cliente.html"
 
+    return render(request, 
+        'agendamento/minha_conta/minha_conta.html', 
+        {'template': template}
+    )
+
+@login_required
+def mudar_foto(request, usuario_id): 
+    usuario = get_object_or_404(User, id=usuario_id)
+    
+    if request.method == 'POST':
+        form = FotoForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('minha_conta')
+    else:
+        form = FotoForm(instance=usuario)
+    
+    if request.user.is_nutricionista:
+        template = "base_nutricionista.html"
+    elif request.user.is_cliente:
+        template = "base_cliente.html"
+
+    return render(request, 
+        'agendamento/minha_conta/mudar_foto.html', 
+        {'template': template, 'form': form}
+    )
+
+@login_required
+def mudar_senha(request): 
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('minha_conta')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    
+    if request.user.is_nutricionista:
+        template = "base_nutricionista.html"
+    elif request.user.is_cliente:
+        template = "base_cliente.html"
+
+    return render(request, 
+        'agendamento/minha_conta/mudar_senha.html', 
+        {'template': template, 'form': form}
+    )
+
+def excluir_conta(request):
+    usuario = get_object_or_404(User, id=request.user.id)
+    usuario.delete()
+
+    return redirect('home')

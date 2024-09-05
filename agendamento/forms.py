@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from .models import Agendamento
-from login.models import Nutricionista
+from login.models import Nutricionista, User
 from datetime import date
 
 class AgendamentoForm(forms.ModelForm):
@@ -51,3 +51,11 @@ class AgendamentoForm(forms.ModelForm):
         if commit:
             agendamento.save()
         return agendamento
+    
+class FotoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('foto',)
+        widgets = {
+            'foto': forms.FileInput(attrs={'class': 'form-control'}),
+        }

@@ -1,0 +1,49 @@
+{% extends template %}
+
+{% load static %}
+
+{% block titulo %} Mudar Senha {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/agendamento/minha_conta.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main        
+        class="d-flex flex-column justify-content-center align-items-center"
+        style="height: 80vh;"
+    >
+        <header
+            class=
+                "header-form border border-1 rounded-top-2 border-bottom-0 
+                text-white p-2 fs-2 text-center"
+            style="width: 30rem;"
+        >
+            Alterar Senha
+        </header>
+        <form method="POST" class="p-4 border border-1 d-flex flex-column gap-2" style="width: 30rem;"
+        >
+            {% csrf_token %}
+            <div>
+                <label for="id_old_password">Senha antiga:</label>
+                <input class="form-control mt-2" type="password" name="old_password" id="id_old_password" autofocus required>
+            </div>
+            <div>
+                <label for="id_new_password1">Nova senha:</label>
+                <input class="form-control mt-2" type="password" name="new_password1" id="id_new_password1" required>
+            </div>            
+            <div>
+                <label for="id_new_password2">Confirmar nova senha:</label>
+                <input class="form-control mt-2" type="password" name="new_password2" id="id_new_password2" required>
+            </div>
+            
+            <button 
+                type="submit" 
+                class="btn btn-success m-auto d-block mt-4" 
+                style="width: 6rem;" 
+            >
+                Alterar
+            </button>
+        </form>
+    </main>
+{% endblock conteudo %}

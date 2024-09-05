@@ -13,6 +13,15 @@
         {% include "partials/catalogo/pesquisa.html" %}
 
         <div class="container">
+            {% if user.is_nutricionista %}
+                <a 
+                    class="btn btn-primary m-auto d-block mb-4" 
+                    href="{% url "adicionar_alimento" %}"
+                    style="max-width: 18rem;"
+                >
+                    Adicionar alimento ao catálogo
+                </a>
+            {% endif %}
             <div class="row">
                 {% for alimento in pagina.object_list %}
                     {% include "partials/catalogo/card.html" %}

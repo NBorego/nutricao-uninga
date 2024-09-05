@@ -28,7 +28,7 @@
                 >
             {% endif %}
             <span class="d-flex justify-content-center align-items-center">
-                <a class="btn btn-outline-primary" href="">
+                <a class="btn btn-outline-primary" href="{% url "mudar_foto" user.id %}">
                     <i class="bi bi-pencil-fill"></i>
                 </a>
             </span>
@@ -44,8 +44,13 @@
         </p>
         <hr>
         <div class="d-flex justify-content-between">
-            <a class="btn btn-primary" href="">Mudar de senha</a>
-            <a class="btn btn-danger" href="">Excluir conta</a>
+            <a class="btn btn-primary" href="{% url "mudar_senha" %}">Mudar de senha</a>
+            <a class="btn btn-danger" 
+                href="{% url 'excluir_conta' %}"
+                onclick="return confirm('Tem certeza que deseja cancelar esta consulta?')"
+            >
+                Excluir conta
+            </a>
         </div>
     </section>
 </main>

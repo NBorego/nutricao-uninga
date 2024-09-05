@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import permission_required, login_required
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from .forms import AlimentoForm
@@ -29,8 +30,9 @@ def alimento(request, id):
     alimento = Alimento.objects.get(id = id)
     return render(request, 'catalogo/alimento.html', {'alimento': alimento})
 
-
-def add(request):
+@login_required
+@permission_required('login.nutricionista')
+def adicionar_alimento(request):
     if request.method == 'POST':
         form = AlimentoForm(request.POST, request.FILES)
 
@@ -39,4 +41,4 @@ def add(request):
             return redirect('catalogo')
     else:
         form = AlimentoForm()
-    return render(request, 'catalogo/add.html', {'form': form})
+    return render(request, 'catalogo/adicionar_alimento.html', {'form': form})
