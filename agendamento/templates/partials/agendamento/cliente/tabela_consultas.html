@@ -1,0 +1,47 @@
+<div class="table-responsive mt-3">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Nutricionista</th>
+                <th>Dia</th>
+                <th>Horário</th>
+                <th>Patologia</th>
+                <th>Status</th>
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+                <tr>
+                    <td>{{ consulta.cliente }}</td>
+                    <td>{{ consulta.nutricionista }}</td>
+                    <td>{{ consulta.dia|date:"d/m/Y" }}</td>
+                    <td>{{ consulta.horario }}</td>
+                    <td>
+                        {% if consulta.tem_patologia %}
+                            Sim
+                        {% else %}
+                            Não
+                        {% endif %}
+                    </td>
+                    <td>{{ consulta.status }}</td>
+                    <td>
+                        <a class="btn btn-outline-danger" 
+                            href="{% url 'cancelar_consulta' consulta.id %}"
+                            onclick="return confirm('Tem certeza que deseja cancelar esta consulta?')">
+                            Cancelar
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-danger">
+                        Nenhuma consulta encontrada.
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

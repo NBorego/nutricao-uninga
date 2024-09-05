@@ -1,0 +1,22 @@
+{% extends "base_nutricionista.html" %}
+
+{% load static %}
+
+{% block titulo %} Pagina Inicial {% endblock titulo %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "css/agendamento/pagina_inicial.css" %}">
+{% endblock styles %}
+
+{% block conteudo %}
+    <main class="container d-flex flex-column align-items-center gap-2" style="margin-top: 4rem;">
+        <h1>Minhas Consultas</h1>
+        <div>
+            <a href="?">Todas</a> |
+            <a href="?status=Pendente">Pendentes</a> |
+            <a href="?status=Confirmado">Confirmadas</a>
+        </div>
+
+        {% include "partials/agendamento/cliente/tabela_consultas.html" %}
+    </main>
+{% endblock conteudo %}

@@ -13,13 +13,16 @@
         {% include "partials/agendamento/bem_vindo.html" %}
 
         <section class="container mt-5 d-flex justify-content-center flex-column text-center">
-            <h1>Minhas Consultas</h1>
-            <hr>
-            <div class="d-flex flex-column gap-2">
-                {% for consulta in consultas %}
-                    {% include "partials/agendamento/nutricionista/consultas.html" %}
-                {% endfor %}
-            </div>
+            <h4>
+                Ver consultas suas consultas em:
+                <a 
+                    class="btn btn-primary d-block mt-4 m-auto" 
+                    href="{% url "minha_agenda" %}"
+                    style="width: 10rem;"    
+                >
+                    minha agenda
+                </a>
+            </h4>
         </section>
     </main>
 {% endblock conteudo %}
