@@ -20,12 +20,10 @@ class AgendamentoForm(forms.ModelForm):
         }),
     )
 
-    horario = forms.TimeField(
+    horario = forms.ChoiceField(
         label="Horário",
-        widget=forms.TimeInput(attrs={
-            'class': 'form-control',
-            'type': 'time'
-        }),
+        choices=Agendamento.HORARIO_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     tem_patologia = forms.BooleanField(
