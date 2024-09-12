@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import permission_required, login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .forms import AlimentoForm
 from .models import Alimento
@@ -29,6 +29,12 @@ def catalogo(request):
 def alimento(request, id):
     alimento = Alimento.objects.get(id = id)
     return render(request, 'catalogo/alimento.html', {'alimento': alimento})
+
+def excluir_alimento(request, id): 
+    alimento = get_object_or_404(Alimento, id=id)
+    alimento.delete()
+
+    return redirect('catalogo')
 
 @login_required
 @permission_required('login.nutricionista')
