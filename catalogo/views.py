@@ -3,11 +3,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .forms import AlimentoForm
 from .models import Alimento
+from login.models import User
 
 def home(request):
     alimentos = Alimento.objects.all().order_by('nome')[:4]
 
-    return render(request, 'home.html', {'alimentos': alimentos})
+    contexto = {
+        'alimentos': alimentos,
+    }
+
+    return render(request, 'home.html', contexto)
 
 def catalogo(request):
     # Filtragem
