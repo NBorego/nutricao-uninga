@@ -4,7 +4,7 @@ from django.db import models
 class User(AbstractUser):
     is_cliente = models.BooleanField(default=False)
     is_nutricionista = models.BooleanField(default=False)
-
+    
     username = models.CharField(unique=True, max_length=50, null=True, blank=True)
     email = models.EmailField(unique=True)
     foto = models.ImageField(null=True, blank=True, upload_to="foto_usuario/")

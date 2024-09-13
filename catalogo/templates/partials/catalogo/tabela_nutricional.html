@@ -7,33 +7,45 @@
         </tr>
     </thead>
     <tbody>
-        {% if alimento.calorias %}
-            <tr>
-                <td>Calorias</td>
-                <td>{{alimento.calorias}} kcal</td>
-                <td>32%</td>
-            </tr>
-        {% endif %}
-        {% if alimento.acucar %}
-            <tr>
-                <td>Acucar</td>
-                <td>{{alimento.acucar}} kcal</td>
-                <td>32%</td>
-            </tr>
-        {% endif %}
-        {% if alimento.proteinas %}
-            <tr>
-                <td>Proteinas</td>
-                <td>{{alimento.proteinas}} kcal</td>
-                <td>0.21%</td>
-            </tr>
-        {% endif %}
-        {% if alimento.sodio %}
+        <tr>
+            <td>Calorias (Valor energético)</td>
+            <td>{{alimento.calorias}} kcal</td>
+            <td>32%</td>
+        </tr>
+        <tr>
+            <td>Carboidratos</td>
+            <td>{{alimento.carboidratos}} g</td>
+            <td>32%</td>
+        </tr>
+        <tr>
+            <td>Carboidratos liquidos</td>
+            <td>{{alimento.carboidratos_liquidos}} g</td>
+            <td>32%</td>
+        </tr>
+        <tr>
+            <td>Proteinas</td>
+            <td>{{alimento.proteinas}} kcal</td>
+            <td>0.21%</td>
+        </tr>
+        <tr>
+            <td>Gorduras totais</td>
+            <td>{{alimento.gorduras_totais}} kcal</td>
+            <td>0.21%</td>
+        </tr>
+        <tr>
+            <td>Gorduras saturadas</td>
+            <td>{{alimento.gorduras_saturadas}} kcal</td>
+            <td>0.21%</td>
+        </tr>
+        <tr>
+            <td>Fibra Alimentar</td>
+            <td>{{alimento.fibra_alimentar}} kcal</td>
+            <td>0.21%</td>
+        </tr>
         <tr>
             <td>Sodio</td>
             <td>{{alimento.sodio}} mg</td>
             <td>0.01%</td>
         </tr>
-    {% endif %}
     </tbody>
 </table>

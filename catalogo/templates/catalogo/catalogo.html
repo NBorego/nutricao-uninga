@@ -13,7 +13,7 @@
         {% include "partials/catalogo/pesquisa.html" %}
 
         <div class="container">
-            {% if user.is_nutricionista %}
+            {% if user.is_nutricionista or user.is_superuser %}
                 <a 
                     class="btn btn-primary m-auto d-block mb-4" 
                     href="{% url "adicionar_alimento" %}"

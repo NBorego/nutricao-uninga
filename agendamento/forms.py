@@ -57,3 +57,23 @@ class FotoForm(forms.ModelForm):
         widgets = {
             'foto': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+class EditarAgendamentoForm(forms.ModelForm):
+    dia = forms.DateField(
+        label=_("Dia"),
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control',
+            'type': 'date',
+            'min': date.today().strftime('%Y-%m-%d')
+        }),
+    )
+
+    horario = forms.ChoiceField(
+        label="Horário",
+        choices=Agendamento.HORARIO_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Agendamento
+        fields = ('dia','horario')    

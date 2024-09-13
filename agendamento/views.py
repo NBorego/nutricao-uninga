@@ -3,7 +3,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Agendamento
-from .forms import AgendamentoForm, FotoForm
+from .forms import AgendamentoForm, FotoForm, EditarAgendamentoForm
 from login.models import User
 
 # Cliente
@@ -93,7 +93,7 @@ def cancelar_consulta(request, consulta_id):
     consulta = get_object_or_404(Agendamento, id=consulta_id)
     consulta.delete()
 
-    if request.user.is_nutricionista:
+    if request.user.is_nutricionista or request.user.is_superuser:
         return redirect('minha_agenda')
     else:
         return redirect('pagina_cliente')
@@ -101,7 +101,7 @@ def cancelar_consulta(request, consulta_id):
 # Minha conta
 @login_required
 def minha_conta(request): 
-    if request.user.is_nutricionista:
+    if request.user.is_nutricionista or request.user.is_superuser:
         template = "base_nutricionista.html"
     elif request.user.is_cliente:
         template = "base_cliente.html"
@@ -123,7 +123,7 @@ def mudar_foto(request, usuario_id):
     else:
         form = FotoForm(instance=usuario)
     
-    if request.user.is_nutricionista:
+    if request.user.is_nutricionista or request.user.is_superuser:
         template = "base_nutricionista.html"
     elif request.user.is_cliente:
         template = "base_cliente.html"
@@ -144,7 +144,7 @@ def mudar_senha(request):
     else:
         form = PasswordChangeForm(user=request.user)
     
-    if request.user.is_nutricionista:
+    if request.user.is_nutricionista or request.user.is_superuser:
         template = "base_nutricionista.html"
     elif request.user.is_cliente:
         template = "base_cliente.html"
@@ -154,8 +154,24 @@ def mudar_senha(request):
         {'template': template, 'form': form}
     )
 
+@login_required
 def excluir_conta(request):
     usuario = get_object_or_404(User, id=request.user.id)
     usuario.delete()
 
     return redirect('home')
+
+@login_required
+@permission_required('login.nutricionista')
+def editar_consulta(request, consulta_id):
+    consulta = get_object_or_404(Agendamento, id=consulta_id)
+
+    if request.method == 'POST':
+        form = EditarAgendamentoForm(request.POST, instance=consulta)
+        if form.is_valid():
+            form.save()
+            return redirect('minha_agenda')
+    else:
+        form = EditarAgendamentoForm(instance=consulta)
+
+    return render(request, 'agendamento/nutricionista/editar_consulta.html', {'form': form})

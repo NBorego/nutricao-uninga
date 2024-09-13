@@ -9,6 +9,7 @@ urlpatterns = [
     path('nutricionista/minha_agenda/', views.minha_agenda, name='minha_agenda'),
     path('nutricionista/aceitar/<int:consulta_id>/', views.aceitar_consulta, name='aceitar_consulta'),
     path('nutricionista/cancelar/<int:consulta_id>/', views.cancelar_consulta, name='cancelar_consulta'),
+    path('nutricionista/editar_consulta/<int:consulta_id>/', views.editar_consulta, name='editar_consulta'),
     path('minha_conta_nutricionista/', views.minha_conta, name='minha_conta'),
     path('mudar_foto/<int:usuario_id>/', views.mudar_foto, name='mudar_foto'),
     path('mudar_senha/', views.mudar_senha, name='mudar_senha'),

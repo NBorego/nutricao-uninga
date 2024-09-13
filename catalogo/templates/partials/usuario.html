@@ -19,7 +19,7 @@
                 {% endif %}
                 <span>{{user.first_name}}</span>
             </a>
-        {% elif user.is_nutricionista %}
+        {% elif user.is_nutricionista or user.is_superuser %}
             <a class="text-white mx-2 text-decoration-none" href="{% url 'pagina_nutricionista' %}">
                 {% if user.foto %}
                     <img 
@@ -36,10 +36,6 @@
                 {% endif %}
                 <span>{{user.first_name}}</span>
             </a>
-        {% else %}
-            <span class="text-white">
-                Administrador
-            </span>
         {% endif %}
         <a class="btn btn-outline-danger" href="{% url 'logout' %}">
             Sair
