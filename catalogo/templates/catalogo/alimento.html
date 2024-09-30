@@ -37,14 +37,92 @@
                 </div>
 
                 <div>
-                    <label class="form-label fw-bold">Quantitade:</label>
-                    <input type="number" class="form-control" id="quantitade" value="1">
+                    <label class="form-label fw-bold">Quantidade:</label>
+                    <input type="number" class="form-control" name="quantidade" id="quantidade" value="1">
                 </div>
 
-                <button class="btn btn-primary" type="button" style="margin-top: 1.95rem;">Calcular</button>
+                <button class="btn btn-primary" type="button" style="margin-top: 1.95rem;" onclick="calcularNutrientes()">Calcular</button>
             </form>
 
             {% include "partials/catalogo/tabela_nutricional.html" %}
         </section>
     </main>
 {% endblock conteudo %}
+
+{% block scripts %}
+<script>
+    function calcularNutrientes() {
+        const quantidade = parseFloat(document.getElementById("quantidade").value);
+        
+        // Exibir no console o valor da quantidade
+        console.log("Quantidade selecionada:", quantidade);
+
+        if (isNaN(quantidade) || quantidade <= 0) {
+            alert("Insira uma quantidade válida.");
+            return;
+        }
+
+        // Pegando os valores originais de nutrientes do template
+        const calorias = parseFloat("{{ alimento.calorias }}".replace(',', '.'));
+        const carboidratos = parseFloat("{{ alimento.carboidratos }}".replace(',', '.'));
+        const carboidratosLiquidos = parseFloat("{{ alimento.carboidratos_liquidos }}".replace(',', '.'));
+        const proteinas = parseFloat("{{ alimento.proteinas }}".replace(',', '.'));
+        const gordurasTotais = parseFloat("{{ alimento.gorduras_totais }}".replace(',', '.'));
+        const gordurasSaturadas = parseFloat("{{ alimento.gorduras_saturadas }}".replace(',', '.'));
+        const fibraAlimentar = parseFloat("{{ alimento.fibra_alimentar }}".replace(',', '.'));
+        const sodio = parseFloat("{{ alimento.sodio }}".replace(',', '.'));
+
+        // Exibir no console os valores para verificar se estão corretos
+        console.log("Calorias:", calorias);
+        console.log("Carboidratos:", carboidratos);
+        console.log("Proteínas:", proteinas);
+        
+        // Verifique se os valores estão presentes e são números
+        if (isNaN(calorias) || isNaN(carboidratos) || isNaN(proteinas)) {
+            alert("Erro ao calcular os nutrientes.");
+            return;
+        }
+
+        // Valores diários recomendados
+        const VD_CALORIAS = 2000;
+        const VD_CARBOIDRATOS = 300;
+        const VD_PROTEINAS = 50;
+        const VD_GORDURAS_TOTAIS = 70;
+        const VD_GORDURAS_SATURADAS = 20;
+        const VD_FIBRA = 25;
+        const VD_SODIO = 2300;
+
+        // Calculando os novos valores com base na quantidade inserida
+        const caloriasCalculadas = (calorias * quantidade).toFixed(2);
+        const carboidratosCalculados = (carboidratos * quantidade).toFixed(2);
+        const carboidratosLiquidosCalculados = (carboidratosLiquidos * quantidade).toFixed(2);
+        const proteinasCalculadas = (proteinas * quantidade).toFixed(2);
+        const gordurasTotaisCalculadas = (gordurasTotais * quantidade).toFixed(2);
+        const gordurasSaturadasCalculadas = (gordurasSaturadas * quantidade).toFixed(2);
+        const fibraAlimentarCalculada = (fibraAlimentar * quantidade).toFixed(2);
+        const sodioCalculado = (sodio * quantidade).toFixed(2);
+
+        // Atualizando os elementos da tabela
+        document.getElementById("valor-calorias").textContent = caloriasCalculadas.replace('.', ',') + " kcal";
+        document.getElementById("valor-carboidratos").textContent = carboidratosCalculados.replace('.', ',') + " g";
+        document.getElementById("valor-carboidratos-liquidos").textContent = carboidratosLiquidosCalculados.replace('.', ',') + " g";
+        document.getElementById("valor-proteinas").textContent = proteinasCalculadas.replace('.', ',') + " g";
+        document.getElementById("valor-gorduras-totais").textContent = gordurasTotaisCalculadas.replace('.', ',') + " g";
+        document.getElementById("valor-gorduras-saturadas").textContent = gordurasSaturadasCalculadas.replace('.', ',') + " g";
+        document.getElementById("valor-fibra-alimentar").textContent = fibraAlimentarCalculada.replace('.', ',') + " g";
+        document.getElementById("valor-sodio").textContent = sodioCalculado.replace('.', ',') + " mg";
+
+        // Cálculo dos valores diários
+        document.getElementById("vd-calorias").textContent = ((caloriasCalculadas / VD_CALORIAS) * 100).toFixed(2) + "%";
+        document.getElementById("vd-carboidratos").textContent = ((carboidratosCalculados / VD_CARBOIDRATOS) * 100).toFixed(2) + "%";
+        document.getElementById("vd-proteinas").textContent = ((proteinasCalculadas / VD_PROTEINAS) * 100).toFixed(2) + "%";
+        document.getElementById("vd-gorduras-totais").textContent = ((gordurasTotaisCalculadas / VD_GORDURAS_TOTAIS) * 100).toFixed(2) + "%";
+        document.getElementById("vd-gorduras-saturadas").textContent = ((gordurasSaturadasCalculadas / VD_GORDURAS_SATURADAS) * 100).toFixed(2) + "%";
+        document.getElementById("vd-fibra-alimentar").textContent = ((fibraAlimentarCalculada / VD_FIBRA) * 100).toFixed(2) + "%";
+        document.getElementById("vd-sodio").textContent = ((sodioCalculado / VD_SODIO) * 100).toFixed(2) + "%";
+    }
+
+    calcularNutrientes();
+</script>
+{% endblock scripts %}
+

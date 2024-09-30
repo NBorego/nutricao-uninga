@@ -33,6 +33,7 @@ def catalogo(request):
 
 def alimento(request, id):
     alimento = Alimento.objects.get(id = id)
+    
     return render(request, 'catalogo/alimento.html', {'alimento': alimento})
 
 def excluir_alimento(request, id): 
