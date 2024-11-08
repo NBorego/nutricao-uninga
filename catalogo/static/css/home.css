@@ -76,6 +76,11 @@ form {
     box-sizing: border-box;
 }
 
+html,
+body {
+    overflow-x: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -84,17 +89,23 @@ body {
 }
 
 footer {
+    margin-top: auto;
     background-color: var(--cor-primaria);
     color: #fff;
     padding-top: 1rem;
+}
+
+footer span {
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .footer-container {
     display: flex;
     justify-content: space-around;
     max-width: 1200px;
-    margin: 0 auto;
     padding: 0px;
+    margin: 0 auto;
 }
 
 .footer-section {
@@ -135,4 +146,18 @@ footer {
     border-top: 1px solid #444;
     font-size: 14px;
     padding-top: 1rem;
+}
+
+.tipo {
+    background-color: var(--cor-primaria);
+    padding: 1rem;
+    color: white;
+    width: 13rem;
+    height: 13rem;
+}
+
+.tipo h1 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
 }
