@@ -6,7 +6,7 @@
     padding: 4rem;
     z-index: 1;
     margin-bottom: 2rem;
-} 
+}
 
 .section::after {
     content: "";
@@ -26,7 +26,8 @@
     font-family: var(--fonte-titulo);
 }
 
-.section h1, form {
+.section h1,
+form {
     z-index: 100;
 }
 
@@ -67,4 +68,71 @@
 
 .agendamento {
     background: #181D27 url("../img/agendamento_img.jpg") center center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    background-color: var(--cor-primaria);
+    color: #fff;
+    padding-top: 1rem;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.footer-section {
+    flex: 1;
+    padding: 0 20px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section ul,
+.footer-section a {
+    font-size: 14px;
+}
+
+.footer-section ul {
+    list-style-type: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #444;
+    font-size: 14px;
+    padding-top: 1rem;
 }
