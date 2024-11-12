@@ -4,8 +4,10 @@ from login.models import Cliente, Nutricionista
 
 class Agendamento(models.Model):
     HORARIO_CHOICES = [
-        ('7:50 a 8:00', '7:50 a 8:00'),
-        ('11:00 a 11:15', '11:00 a 11:15'),
+        ('8:00', '8:00'),
+        ('9:00', '9:00'),
+        ('10:00', '10:00'),
+        ('11:00', '11:00'),
     ]
 
     cliente = ForeignKey(Cliente, on_delete=models.CASCADE, related_name='agendamento', default=1)
