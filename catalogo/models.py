@@ -4,7 +4,6 @@ from django.core.validators import MinValueValidator
 class Alimento(models.Model):
     nome = models.CharField(max_length=150, null=False, unique=True)
     medida_caseira = models.CharField(max_length=100, null=False, blank=False, default="gramas")
-    quantidade_gml = models.FloatField(null=False, default=100) 
     imagem = models.ImageField(null=True, blank=True, upload_to="imagem__alimento/")
     descricao = models.TextField(null=True)
     calorias = models.DecimalField(
